@@ -31,9 +31,11 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import corporation.darkshadow.courster.Adapters.MechanicalAdapter;
+import corporation.darkshadow.courster.Adapters.CsAdapter;
+import corporation.darkshadow.courster.Network.Cs;
 import corporation.darkshadow.courster.Network.Mech;
 import corporation.darkshadow.courster.RecyclerDivider.MyDividerItemDecoration;
+import corporation.darkshadow.courster.RecyclerDivider.RecyclerCsTouchListener;
 import corporation.darkshadow.courster.RecyclerDivider.RecyclerTouchListener;
 import corporation.darkshadow.courster.pojo.Course;
 import corporation.darkshadow.courster.pojo.Result;
@@ -49,10 +51,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Created by darkshadow on 28/1/18.
  */
 
-public class MechanicalActivity extends AppCompatActivity{
+public class CsActivity extends AppCompatActivity{
     private List<Result> courseList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private MechanicalAdapter mechanicalAdapter;
+    private CsAdapter csAdapter;
     private ProgressBar progressBar;
     private SearchView searchView;
 
@@ -65,24 +67,24 @@ public class MechanicalActivity extends AppCompatActivity{
 
         // toolbar fancy stuff
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Mechanical Courses");
+        getSupportActionBar().setTitle("ComputerScience Courses");
 
         recyclerView = (RecyclerView)findViewById(R.id.recycler_mechview);
         progressBar = (ProgressBar)findViewById(R.id.loadingPanel);
 
-//        mechanicalAdapter = new MechanicalAdapter(MechanicalActivity.this,courseList);
+//        CsAdapter = new CsAdapter(CsActivity.this,courseList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.VERTICAL,16));
-//        recyclerView.setAdapter(mechanicalAdapter);
+//        recyclerView.setAdapter(CsAdapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new MechanicalActivity.ClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerCsTouchListener(getApplicationContext(), recyclerView, new CsActivity.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Result r = courseList.get(position);
 //                Toast.makeText(getApplicationContext(), r.getCoursename(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(MechanicalActivity.this,IndividualCourseActivity.class);
+                Intent intent = new Intent(CsActivity.this,IndividualCourseActivity.class);
                 intent.putExtra("url",r.getUrl());
                 startActivity(intent);
             }
@@ -99,21 +101,21 @@ public class MechanicalActivity extends AppCompatActivity{
 
         progressBar.setVisibility(ProgressBar.VISIBLE);
         Retrofit check = new Retrofit.Builder()
-                        .baseUrl("https://eeia.000webhostapp.com/")
-                        .client(getUnsafeOkHttpClient())
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-        Mech service = check.create(Mech.class);
+                .baseUrl("https://eeia.000webhostapp.com/")
+                .client(getUnsafeOkHttpClient())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Cs service = check.create(Cs.class);
         Call<Course> userCall = service.getCourses();
         userCall.enqueue(new Callback<Course>() {
             @Override
             public void onResponse(Call<Course> call, Response<Course> response) {
                 if(response.isSuccessful()){
-//                    Toast.makeText(MechanicalActivity.this,"yeeeeee",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(CsActivity.this,"yeeeeee",Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(ProgressBar.INVISIBLE);
                     courseList = response.body().getResult();
-                    mechanicalAdapter = new MechanicalAdapter(MechanicalActivity.this,courseList);
-                    recyclerView.setAdapter(mechanicalAdapter);
+                    csAdapter = new CsAdapter(CsActivity.this,courseList);
+                    recyclerView.setAdapter(csAdapter);
 
                 }
             }
@@ -195,14 +197,14 @@ public class MechanicalActivity extends AppCompatActivity{
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // filter recycler view when query submitted
-                mechanicalAdapter.getFilter().filter(query);
+                csAdapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
                 // filter recycler view when text is changed
-                mechanicalAdapter.getFilter().filter(query);
+                csAdapter.getFilter().filter(query);
                 return false;
             }
         });

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import corporation.darkshadow.courster.MechanicalActivity;
+import corporation.darkshadow.courster.CsActivity;
 import corporation.darkshadow.courster.R;
 import corporation.darkshadow.courster.pojo.Result;
 
@@ -20,13 +20,13 @@ import corporation.darkshadow.courster.pojo.Result;
  * Created by darkshadow on 29/1/18.
  */
 
-public class MechanicalAdapter extends RecyclerView.Adapter<MechanicalAdapter.MyViewHolder> implements Filterable {
+public class CsAdapter extends RecyclerView.Adapter<CsAdapter.MyViewHolder> implements Filterable {
 
     private List<Result> courseList;
     private List<Result> courseListFiltered;
     private Context context;
 
-    public MechanicalAdapter(MechanicalActivity context, List<Result> courseList){
+    public CsAdapter(CsActivity context, List<Result> courseList){
         this.context = context;
         this.courseList = courseList;
         this.courseListFiltered = courseList;
@@ -43,13 +43,13 @@ public class MechanicalAdapter extends RecyclerView.Adapter<MechanicalAdapter.My
     }
 
     @Override
-    public MechanicalAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public CsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.mechanical_list,parent,false);
         return new MyViewHolder(itemview);
     }
 
     @Override
-    public void onBindViewHolder(MechanicalAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(CsAdapter.MyViewHolder holder, int position) {
         final Result course = courseListFiltered.get(position);
         holder.coursename.setText(course.getCoursename());
         holder.university.setText(course.getUniversity());

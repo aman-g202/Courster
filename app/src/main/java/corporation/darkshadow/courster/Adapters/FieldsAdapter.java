@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import corporation.darkshadow.courster.CsActivity;
 import corporation.darkshadow.courster.Fragments.HomeFragment;
 import corporation.darkshadow.courster.MechanicalActivity;
 import corporation.darkshadow.courster.R;
@@ -71,13 +72,53 @@ public class FieldsAdapter extends RecyclerView.Adapter<FieldsAdapter.MyViewHold
         // loading album cover using Glide library
         Glide.with(mContext).load(fields.getThumbnail()).into(holder.thumbnail);
 
-        holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, MechanicalActivity.class);
-                mContext.startActivity(intent);
-            }
-        });
+        if(fields.getNumOfcourse() == 70){
+            holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, MechanicalActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+
+        if(fields.getNumOfcourse() == 193){
+            holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, CsActivity.class);
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+
+        if(fields.getNumOfcourse() == 218){
+            holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        if(fields.getNumOfcourse() == 249){
+            holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        if(fields.getNumOfcourse() == 182){
+            holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
 
     }
 
