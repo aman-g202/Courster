@@ -14,7 +14,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name="corporation.darkshadow.courster.SplashScreen"
+            android:name="corporation.darkshadow.courster.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -26,11 +26,22 @@
 
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignupActivity"/>
-        <activity android:name=".MainActivity"/>
+        <!--<activity android:name=".MainActivity"/>-->
         <activity android:name=".AboutUsActivity"/>
         <activity android:name=".LegalPolicyActivity"/>
-        <activity android:name=".MechanicalActivity"
-            android:label="Mechanical Courses"/>
+        <activity
+            android:name=".MechanicalActivity"
+            android:label="Mechanical Courses">
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".IndividualCourseActivity"/>
     </application>
 

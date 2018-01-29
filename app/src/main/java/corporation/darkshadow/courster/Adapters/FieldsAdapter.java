@@ -79,13 +79,6 @@ public class FieldsAdapter extends RecyclerView.Adapter<FieldsAdapter.MyViewHold
             }
         });
 
-        holder.thumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(mContext,"Wait! It will take some time",Toast.LENGTH_LONG).show();
-            }
-        });
-
     }
 
     @Override

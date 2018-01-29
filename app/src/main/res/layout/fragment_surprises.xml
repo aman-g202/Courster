@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Management field is Under Construction"
+        android:text="Near by is coming soon!"
         android:ems="10"
         android:id="@+id/editText" />
 

@@ -38,7 +38,7 @@
     <string name="nav_addpost">Arts</string>
     <string name="nav_wishlist">Medical</string>
     <string name="nav_faq">Law</string>
-    <string name="nav_surprises">Management</string>
+    <string name="nav_surprises">NearBy Coachings</string>
     <string name="nav_about_us">About Us</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
@@ -58,7 +58,7 @@
         <item>Medical</item>
         <item>Commerce</item>
         <item>Law</item>
-        <item>Management</item>
+        <item>NearBy Coachings</item>
     </string-array>
 
     <string name="activity_title_about_us">About Us</string>
