@@ -23,8 +23,11 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import corporation.darkshadow.courster.CivilActivity;
 import corporation.darkshadow.courster.CsActivity;
+import corporation.darkshadow.courster.EcActivity;
 import corporation.darkshadow.courster.Fragments.HomeFragment;
+import corporation.darkshadow.courster.ItActivity;
 import corporation.darkshadow.courster.MechanicalActivity;
 import corporation.darkshadow.courster.R;
 import corporation.darkshadow.courster.pojo.Fields;
@@ -96,7 +99,8 @@ public class FieldsAdapter extends RecyclerView.Adapter<FieldsAdapter.MyViewHold
             holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(mContext, EcActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -105,7 +109,8 @@ public class FieldsAdapter extends RecyclerView.Adapter<FieldsAdapter.MyViewHold
             holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(mContext, CivilActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -114,7 +119,8 @@ public class FieldsAdapter extends RecyclerView.Adapter<FieldsAdapter.MyViewHold
             holder.buttoncourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Coming Soon",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(mContext, ItActivity.class);
+                    mContext.startActivity(intent);
                 }
             });
         }

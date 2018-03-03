@@ -1,4 +1,4 @@
-package corporation.darkshadow.courster.Fragments;
+package corporation.darkshadow.courster;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -7,22 +7,18 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
@@ -35,15 +31,16 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import corporation.darkshadow.courster.Adapters.LawAdapter;
-
-import corporation.darkshadow.courster.IndividualCourseActivity;
-
-import corporation.darkshadow.courster.Network.Law;
-import corporation.darkshadow.courster.R;
+import corporation.darkshadow.courster.Adapters.CivilAdapter;
+import corporation.darkshadow.courster.Network.Civil;
+import corporation.darkshadow.courster.Network.Cs;
+import corporation.darkshadow.courster.Network.Ec;
+import corporation.darkshadow.courster.Network.Mech;
 import corporation.darkshadow.courster.RecyclerDivider.MyDividerItemDecoration;
-
-import corporation.darkshadow.courster.RecyclerDivider.RecyclerLawTouchListener;
+import corporation.darkshadow.courster.RecyclerDivider.RecyclerCivilTouchListener;
+import corporation.darkshadow.courster.RecyclerDivider.RecyclerCsTouchListener;
+import corporation.darkshadow.courster.RecyclerDivider.RecyclerEcTouchListener;
+import corporation.darkshadow.courster.RecyclerDivider.RecyclerTouchListener;
 import corporation.darkshadow.courster.pojo.Course;
 import corporation.darkshadow.courster.pojo.Result;
 import okhttp3.OkHttpClient;
@@ -55,47 +52,43 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by DELL on 5/7/2017.
+ * Created by darkshadow on 28/1/18.
  */
 
-public class FaqFragment extends Fragment {
-
+public class CivilActivity extends AppCompatActivity{
     private List<Result> courseList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private LawAdapter LawAdapter;
+    private CivilAdapter CivilAdapter;
     private ProgressBar progressBar;
     private SearchView searchView;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_post,container,false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.mechanical_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarmech);
+        setSupportActionBar(toolbar);
 
-        setHasOptionsMenu(true);
+        // toolbar fancy stuff
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Civil Courses");
 
-//        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbarmech);
-//        setSupportActionBar(toolbar);
-//
-//        // toolbar fancy stuff
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle("ComputerScience Courses");
+        recyclerView = (RecyclerView)findViewById(R.id.recycler_mechview);
+        progressBar = (ProgressBar)findViewById(R.id.loadingPanel);
 
-        recyclerView = (RecyclerView)view.findViewById(R.id.recycler_mechview);
-        progressBar = (ProgressBar)view.findViewById(R.id.loadingPanel);
-
-//        CsAdapter = new CsAdapter(CsActivity.this,courseList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+//        CivilAdapter = new CivilAdapter(CivilActivity.this,courseList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new MyDividerItemDecoration(getActivity(),LinearLayoutManager.VERTICAL,16));
-//        recyclerView.setAdapter(CsAdapter);
+        recyclerView.addItemDecoration(new MyDividerItemDecoration(this,LinearLayoutManager.VERTICAL,16));
+//        recyclerView.setAdapter(CivilAdapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerLawTouchListener(getActivity(), recyclerView, new FaqFragment.ClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerCivilTouchListener(getApplicationContext(), recyclerView, new CivilActivity.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Result r = courseList.get(position);
 //                Toast.makeText(getApplicationContext(), r.getCoursename(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getActivity(),IndividualCourseActivity.class);
+                Intent intent = new Intent(CivilActivity.this,IndividualCourseActivity.class);
                 intent.putExtra("url",r.getUrl());
                 startActivity(intent);
             }
@@ -103,7 +96,7 @@ public class FaqFragment extends Fragment {
             @Override
             public void onLongClick(View view, int position) {
                 Result r = courseList.get(position);
-                Toast.makeText(getActivity(),"Functionalities Coming Soon",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Functionalities Coming Soon",Toast.LENGTH_LONG).show();
             }
         }));
 
@@ -116,21 +109,21 @@ public class FaqFragment extends Fragment {
                 .client(getUnsafeOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        Law service = check.create(Law.class);
+        Civil service = check.create(Civil.class);
         Call<Course> userCall = service.getCourses();
         userCall.enqueue(new Callback<Course>() {
             @Override
             public void onResponse(Call<Course> call, Response<Course> response) {
                 if(response.isSuccessful()){
-//                    Toast.makeText(CsActivity.this,"yeeeeee",Toast.LENGTH_LONG).show();
+//                    Toast.makeText(CivilActivity.this,"yeeeeee",Toast.LENGTH_LONG).show();
                     progressBar.setVisibility(ProgressBar.INVISIBLE);
                     courseList = response.body().getResult();
-                    LawAdapter = new LawAdapter(getActivity(),courseList);
-                    recyclerView.setAdapter(LawAdapter);
+                    CivilAdapter = new CivilAdapter(CivilActivity.this,courseList);
+                    recyclerView.setAdapter(CivilAdapter);
 
                 }
                 else{
-                    Toast.makeText(getActivity(),"Oops! Some issues on the server side",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CivilActivity.this,"Oops! Some issues on the server side",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -140,8 +133,6 @@ public class FaqFragment extends Fragment {
             }
         });
 
-
-        return view;
     }
 
     public static OkHttpClient getUnsafeOkHttpClient() {
@@ -197,15 +188,15 @@ public class FaqFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_search, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
 
         // Associate searchable configuration with the SearchView
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search)
                 .getActionView();
         searchView.setSearchableInfo(searchManager
-                .getSearchableInfo(getActivity().getComponentName()));
+                .getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
 
         // listening to search query text change
@@ -213,19 +204,18 @@ public class FaqFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 // filter recycler view when query submitted
-                LawAdapter LawAdapter = new LawAdapter();
-                LawAdapter.getFilter().filter(query);
+                CivilAdapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String query) {
                 // filter recycler view when text is changed
-                LawAdapter.getFilter().filter(query);
+                CivilAdapter.getFilter().filter(query);
                 return false;
             }
         });
-//        return true;
+        return true;
     }
 
     @Override
@@ -240,25 +230,20 @@ public class FaqFragment extends Fragment {
             return true;
         }
         if(id == android.R.id.home){
-//            onBackPressed();
+            onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        // close search view on back button pressed
-//        if (!searchView.isIconified()) {
-//            searchView.setIconified(true);O
-//            return;
-//        }
-//        super.onBackPressed();
-//    }
-
     @Override
-    public void setHasOptionsMenu(boolean hasMenu) {
-        super.setHasOptionsMenu(hasMenu);
+    public void onBackPressed() {
+        // close search view on back button pressed
+        if (!searchView.isIconified()) {
+            searchView.setIconified(true);
+            return;
+        }
+        super.onBackPressed();
     }
 
     private void whiteNotificationBar(View view) {
@@ -266,9 +251,8 @@ public class FaqFragment extends Fragment {
             int flags = view.getSystemUiVisibility();
             flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
             view.setSystemUiVisibility(flags);
-            getActivity().getWindow().setStatusBarColor(Color.WHITE);
+            getWindow().setStatusBarColor(Color.WHITE);
         }
     }
-
 
 }

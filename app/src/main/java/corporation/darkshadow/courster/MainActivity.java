@@ -369,9 +369,26 @@ public class MainActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.main, menu);
         }
 
+        if (navItemIndex == 1) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+
+        if (navItemIndex == 2) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+
+        if (navItemIndex == 4) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+
+        if (navItemIndex == 5) {
+            getMenuInflater().inflate(R.menu.main, menu);
+        }
+
         // when fragment is notifications, load the menu created for notifications
         if (navItemIndex == 3) {
-            getMenuInflater().inflate(R.menu.notification, menu);
+//            getMenuInflater().inflate(R.menu.notification, menu);
+            getMenuInflater().inflate(R.menu.main, menu);
         }
         return true;
     }
@@ -385,20 +402,20 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            Toast.makeText(getApplicationContext(), "Logout user!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Logout user Under Construction!", Toast.LENGTH_LONG).show();
             return true;
         }
 
         // user is in notifications fragment
         // and selected 'Mark all as Read'
         if (id == R.id.action_mark_all_read) {
-            Toast.makeText(getApplicationContext(), "All notifications marked as read!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Heeeeeyyyyy", Toast.LENGTH_LONG).show();
         }
 
         // user is in notifications fragment
         // and selected 'Clear All'
         if (id == R.id.action_clear_notifications) {
-            Toast.makeText(getApplicationContext(), "Clear all notifications!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Clear all", Toast.LENGTH_LONG).show();
         }
 
         return super.onOptionsItemSelected(item);

@@ -116,6 +116,9 @@ public class MechanicalActivity extends AppCompatActivity{
                     recyclerView.setAdapter(mechanicalAdapter);
 
                 }
+                else{
+                    Toast.makeText(MechanicalActivity.this,"Oops! Some issues on the server side",Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

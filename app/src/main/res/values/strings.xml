@@ -53,11 +53,11 @@
 
     <!--As accordance with above numbering-->
     <string-array name="nav_item_activity_titles">
-        <item>Engineeing</item>
-        <item>Arts</item>
-        <item>Medical</item>
-        <item>Commerce</item>
-        <item>Law</item>
+        <item>Engineering Fields</item>
+        <item>Arts Courses</item>
+        <item>Medical Courses</item>
+        <item>Commerce Courses</item>
+        <item>Law Courses</item>
         <item>NearBy Coachings</item>
     </string-array>
 

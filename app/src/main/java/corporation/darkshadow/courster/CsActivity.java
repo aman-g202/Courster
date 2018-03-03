@@ -118,6 +118,9 @@ public class CsActivity extends AppCompatActivity{
                     recyclerView.setAdapter(csAdapter);
 
                 }
+                else{
+                    Toast.makeText(CsActivity.this,"Oops! Some issues on the server side",Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
