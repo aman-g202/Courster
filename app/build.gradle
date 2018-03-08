@@ -45,4 +45,8 @@ dependencies {
 
     // Glide
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    // Play Service
+    compile 'com.google.android.gms:play-services-location:8.1.0'
+    compile 'com.google.android.gms:play-services:10.2.0'
 }

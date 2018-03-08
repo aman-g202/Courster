@@ -88,11 +88,11 @@ public class HomeFragment extends Fragment {
 //      ----------------------- Preparing Fields-------------------------------
 
         String[] covers = new String[]{
-                "http://anangpuria.com/demo/blog/wp-content/uploads/2017/02/computer-science.jpg",
+                "http://sci-forex.com/laptop.jpg",
                 "https://www.creaform-engineering.com/sites/default/files/public/mechanical_-_utv_bodywork003.jpg",
                 "http://www.naceweb.org/uploadedimages/images/2017/feature/electrical-engineering-get-top-salary.jpg",
                 "https://www.army.mil/e2/c/images/2016/03/04/425816/size0.jpg",
-                "https://www.elprocus.com/wp-content/uploads/2014/04/Sftware.jpg"};
+                "http://sci-forex.com/it.png"};
 
         Fields f = new Fields("Computer Science",193,covers[0]);
         fieldList.add(f);

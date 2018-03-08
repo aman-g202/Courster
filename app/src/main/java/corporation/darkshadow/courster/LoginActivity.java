@@ -161,16 +161,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
 //               Toast.makeText(LoginActivity.this,"Aman hey",Toast.LENGTH_LONG).show();
                 progress.dismiss();
-                String output = response.body().getResult();
-                if (output.equals("Mobile Number or Password may be incorrect")){
-                    Toast.makeText(LoginActivity.this,output,Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(LoginActivity.this,LoginActivity.class);
-                    startActivity(intent);
+                if(response.isSuccessful()) {
+                    String output = response.body().getResult();
+                    if (output.equals("Mobile Number or Password may be incorrect")) {
+                        Toast.makeText(LoginActivity.this, output, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(LoginActivity.this, output, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
                 }
                 else{
-                    Toast.makeText(LoginActivity.this,output,Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(LoginActivity.this, "Oops! error on the server side", Toast.LENGTH_LONG).show();
                 }
             }
 

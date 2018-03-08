@@ -181,16 +181,21 @@ public class SignupActivity extends AppCompatActivity {
             public void onResponse(Call<Users> call, Response<Users> response) {
                 //progressBar.setVisibility(View.INVISIBLE);
                 progress.dismiss();
-                String output = response.body().getResult();
-                if(output.equals("Mobile Number Already Exist!")){
-                    Toast.makeText(SignupActivity.this,output,Toast.LENGTH_LONG).show();
+                if(response.isSuccessful()) {
+                    String output = response.body().getResult();
+                    if (output.equals("Mobile Number Already Exist!")) {
+                        Toast.makeText(SignupActivity.this, output, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(SignupActivity.this, output, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                    }
                 }
-                else {
-                    Toast.makeText(SignupActivity.this, output, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                else{
+                    Toast.makeText(SignupActivity.this, "Oops! error on the server side", Toast.LENGTH_LONG).show();
                 }
             }
+
 
             @Override
             public void onFailure(Call<Users> call, Throwable t) {
