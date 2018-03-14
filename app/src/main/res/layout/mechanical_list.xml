@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/row_padding_vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/row_padding_vertical"
-    android:padding="15dp">
+    android:layout_width="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    card_view:cardCornerRadius="8dp"
+    card_view:cardElevation="4dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp">
 
-    <TextView
-        android:id="@+id/coursename"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:textColor="@color/coursename"
-        android:textSize="16dp"
-        android:textStyle="bold" />
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/row_padding_vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/row_padding_vertical"
+        android:padding="15dp">
 
-    <TextView
-        android:id="@+id/university"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/coursename"
-        android:textColor="@color/university" />
+        <TextView
+            android:id="@+id/coursename"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/coursename"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/university"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/coursename"
+            android:textColor="@color/university"/>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+

@@ -8,16 +8,25 @@ package corporation.darkshadow.courster;
         import android.content.Intent;
         import android.os.Bundle;
         import android.os.Handler;
+        import android.view.animation.Animation;
+        import android.view.animation.AnimationUtils;
+        import android.widget.TextView;
 
 public class SplashScreen extends Activity {
+    private Animation animation;
+    TextView textView;
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 3000;
+    private static int SPLASH_TIME_OUT = 6000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        textView = (TextView)findViewById(R.id.textsplash);
+
+        animation = AnimationUtils.loadAnimation(this, R.anim.fadein);
+        textView.startAnimation(animation);
 
         new Handler().postDelayed(new Runnable() {
 

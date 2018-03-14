@@ -30,6 +30,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import corporation.darkshadow.courster.Network.Login;
+import corporation.darkshadow.courster.Utils.SharedPrefUtil;
 import corporation.darkshadow.courster.pojo.Users;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -50,11 +51,12 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textViewSignup;
     private Button btnLogIn;
     private ProgressBar progressBar;
+    SharedPrefUtil prefUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.loginlayout);
+        setContentView(R.layout.logincard);
         inputLayoutNumber = (TextInputLayout) findViewById(R.id.input_layout_number);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_password);
         inputNumber = (EditText) findViewById(R.id.input_number);
@@ -62,6 +64,18 @@ public class LoginActivity extends AppCompatActivity {
         textViewSignup = (TextView) findViewById(R.id.textviewaccountsignup);
         btnLogIn = (Button) findViewById(R.id.input_login);
         progressBar = (ProgressBar) findViewById(R.id.progressbar);
+
+        prefUtil = new SharedPrefUtil(LoginActivity.this);
+
+        if (!prefUtil.retrieveLogin("mobile","").equals("")){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            // Closing all the Activities
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            // Add new Flag to start new Activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
 
         inputNumber.addTextChangedListener(new MyTextWatcher(inputNumber));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
@@ -140,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        String mobile = inputNumber.getText().toString().trim();
+        final String mobile = inputNumber.getText().toString().trim();
         String password = inputPassword.getText().toString().trim();
 
 
@@ -168,6 +182,9 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, LoginActivity.class);
                         startActivity(intent);
                     } else {
+
+                        prefUtil.createLogin("mobile",mobile);
+
                         Toast.makeText(LoginActivity.this, output, Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);

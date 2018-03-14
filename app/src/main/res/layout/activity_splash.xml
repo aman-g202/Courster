@@ -1,35 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#209980">
+    android:background="@drawable/lib">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
 
-        <ImageView
-            android:layout_width="700px"
-            android:layout_height="700px"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:paddingTop="90dp"
-            android:id="@+id/imagesplash"
-            android:src="@drawable/loginlogo" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imagesplash"
+            android:layout_centerHorizontal="true"
             android:text="Explore your world!"
+            android:textColor="#fdfdfd"
+            android:alpha="0.2"
             android:fontFamily="cursive"
             android:textStyle="bold"
             android:textSize="40dp"
             android:paddingTop="30dp"
             android:layout_marginTop="20dp"
-            android:id="@+id/textsplash"
-            android:layout_centerHorizontal="true"/>
-
+            android:id="@+id/textsplash" />
 
     </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>

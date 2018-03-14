@@ -3,43 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#209980"
         android:weightSum="1">
-        <TextView
-            android:text="Engineering"
-            android:textSize="50dp"
-            android:textStyle="bold"
-            android:fontFamily="cursive"
-            android:layout_marginTop="30dp"
-            android:layout_marginLeft="80dp"
-            android:textColor="#ca5f41"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2" />
-        <ImageView
-            android:id="@+id/logoicon"
-            android:layout_width="100px"
-            android:layout_height="100px"
-            android:src="@drawable/loginlogo"
-            android:translationX="120dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Explore"
-            android:textSize="30dp"
-            android:fontFamily="cursive"
-            android:textColor="#ca5f41"
-            android:layout_marginLeft="180dp"
-            android:layout_marginTop="-40dp"
-            android:textStyle="bold"/>
+            android:id="@+id/nameapp">
+
+            <TextView
+                android:text="Courster"
+                android:textSize="50dp"
+                android:textStyle="bold"
+                android:fontFamily="cursive"
+                android:layout_marginTop="30dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ca5f41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2" />
+
+        </RelativeLayout>
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/input_layout_name"
             android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
             android:layout_height="wrap_content">
 
             <EditText

@@ -33,6 +33,7 @@ import corporation.darkshadow.courster.Fragments.HomeFragment;
 import corporation.darkshadow.courster.Fragments.SurprisesFragment;
 import corporation.darkshadow.courster.Fragments.WishListFragment;
 import corporation.darkshadow.courster.Others.CircleTransform;
+import corporation.darkshadow.courster.Utils.SharedPrefUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
-    private static final String urlNavHeaderBg = "http://api.androidhive.info/images/nav-menu-header-bg.jpg";
+    private static final String urlNavHeaderBg = "https://www.sci-forex.com/navheader2.png";
     private static final String urlProfileImg = "https://lh3.googleusercontent.com/L_MS3QNvmhnEOsYjnBGgARpYz5hr6WYFdnJog2266jI-dseXQq5eR5SaXgyuWE1uMOVQb4HDhcK8OQ=s512-no";
 
     // index to identify current nav menu item
@@ -68,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     // flag to load home fragment when user presses back key
     private boolean shouldLoadHomeFragOnBackPress = true;
     private Handler mHandler;
+
+    SharedPrefUtil sharedPrefUtil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +93,15 @@ public class MainActivity extends AppCompatActivity {
         imgNavHeaderBg = (ImageView) navHeader.findViewById(R.id.img_header_bg);
         imgProfile = (ImageView) navHeader.findViewById(R.id.img_profile);
 
+        sharedPrefUtil = new SharedPrefUtil(this);
+
         // load toolbar titles from string resources
         activityTitles = getResources().getStringArray(R.array.nav_item_activity_titles);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Under Construction", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "For any query Mail us At : courster@gmail.com", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -402,7 +407,15 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
-            Toast.makeText(getApplicationContext(), "Logout user Under Construction!", Toast.LENGTH_LONG).show();
+            sharedPrefUtil.logOutUser();
+            Intent intent = new Intent(this,LoginActivity.class);
+            // Closing all the Activities
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            // Add new Flag to start new Activity
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+//            Toast.makeText(getApplicationContext(), "Logout user Under Construction!", Toast.LENGTH_LONG).show();
             return true;
         }
 

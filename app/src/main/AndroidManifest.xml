@@ -23,7 +23,7 @@
 
         <!-- Splash screen -->
         <activity
-            android:name="corporation.darkshadow.courster.MainActivity"
+            android:name="corporation.darkshadow.courster.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,7 +35,7 @@
 
         <activity android:name=".LoginActivity"/>
         <activity android:name=".SignupActivity"/>
-        <!--<activity android:name=".SplashScreen"/>-->
+        <activity android:name=".MainActivity"/>
         <activity android:name=".AboutUsActivity"/>
         <activity android:name=".LegalPolicyActivity"/>
         <activity
@@ -104,6 +104,13 @@
 
         </activity>
         <activity android:name=".IndividualCourseActivity"/>
+        <activity android:name=".IndividualCoachingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="geo" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
